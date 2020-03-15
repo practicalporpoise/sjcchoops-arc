@@ -1,0 +1,6 @@
+{
+  "name": "get-admin-players",
+  "dependencies": {
+    "@architect/functions": "^3.7.6"
+  }
+}
