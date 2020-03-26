@@ -1,5 +1,6 @@
 const arc = require('@architect/functions');
 const Layout = require('@architect/views/layout');
+const { basicAuth, defaults, pipeline } = require('@architect/shared/middleware');
 
 async function editPlayer (request) {
   const { playerId } = request.pathParameters;
@@ -10,14 +11,15 @@ async function editPlayer (request) {
   
   return {
     headers: {'content-type': 'text/html; charset=utf8'},
-    body: Layout(view(player))
+    body: Layout(view(player, request.csrfToken()))
   };
 }
 
-function view(player) {
+function view (player, csrfToken) {
   return `
     <h2>Add a new player</h2>
     <form action="/admin/players/${player.playerId}" method="POST">
+      <input type="hidden" name="_csrf" value="${csrfToken}"/>
       <label>
         Name: <input type="text" name="name" value="${player.name}" required/>
       </label>
@@ -36,4 +38,4 @@ function view(player) {
   `
 }
 
-exports.handler = arc.http.async(editPlayer);
+exports.handler = pipeline(basicAuth, ...defaults(), editPlayer);

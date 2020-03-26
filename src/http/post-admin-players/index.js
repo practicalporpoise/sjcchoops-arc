@@ -1,5 +1,7 @@
-const arc = require('@architect/functions');
 const HashIds = require('hashids/cjs');
+const arc = require('@architect/functions');
+const { basicAuth, defaults, pipeline } = require('@architect/shared/middleware');
+
 const hashIds = new HashIds();
 
 async function createPlayer (request) {
@@ -49,4 +51,4 @@ function buildPlayer(email, name) {
   };
 }
 
-exports.handler = arc.http.async(createPlayer);
+exports.handler = pipeline(basicAuth, ...defaults(), createPlayer);

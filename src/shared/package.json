@@ -1,0 +1,9 @@
+{
+  "name": "shared",
+  "dependencies": {
+    "@architect/functions": "^3.7.6",
+    "cookie-session": "^1.4.0",
+    "csurf": "^1.11.0",
+    "helmet": "^3.22.0"
+  }
+}

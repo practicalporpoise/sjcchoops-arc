@@ -1,17 +1,20 @@
 const arc = require('@architect/functions');
 const Layout = require('@architect/views/layout') ;
+const { basicAuth, defaults, pipeline } = require('@architect/shared/middleware');
 
-async function listPlayers (_request) {
+async function listPlayers () {
   const data = await arc.tables();
   const players = await data.players.scan({});
 
   return {
+    statusCode: 200,
     headers: {'content-type': 'text/html; charset=utf8'},
-    body: Layout(view(players.Items))
+    body: Layout(view(players.Items)),
+    isBase64Encoded: false,
   };
 }
 
-function view(players) {
+function view (players) {
   return `
     <div class="manage-header">
       <h1>Manage Players</h1>
@@ -42,4 +45,4 @@ function view(players) {
   `;
 }
 
-exports.handler = arc.http.async(listPlayers);
+exports.handler = pipeline(basicAuth, ...defaults(), listPlayers);

@@ -1,4 +1,5 @@
 const arc = require('@architect/functions');
+const { basicAuth, defaults, pipeline } = require('@architect/shared/middleware');
 
 async function updatePlayer (request) {
   try {
@@ -36,4 +37,4 @@ async function updatePlayer (request) {
   }
 }
 
-exports.handler = arc.http.async(updatePlayer);
+exports.handler = pipeline(basicAuth, ...defaults(), updatePlayer);

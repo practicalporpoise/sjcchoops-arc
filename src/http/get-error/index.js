@@ -1,5 +1,6 @@
 const arc = require('@architect/functions');
 const Layout = require('@architect/views/layout');
+const { defaults, pipeline } = require('@architect/shared/middleware');
 
 async function error (req) {
   return {
@@ -14,4 +15,4 @@ function view() {
   `
 }
 
-exports.handler = arc.http.async(error);
+exports.handler = pipeline(...defaults(), pipeline);

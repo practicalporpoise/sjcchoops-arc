@@ -1,17 +1,18 @@
-const arc = require('@architect/functions');
-const Layout = require('@architect/views/layout') ;
+const Layout = require('@architect/views/layout');
+const { basicAuth, defaults, pipeline } = require('@architect/shared/middleware');
 
-async function newPlayer (req) {
+async function newPlayer (request) {
   return {
     headers: {'content-type': 'text/html; charset=utf8'},
-    body: Layout(view())
+    body: Layout(view(request.csrfToken()))
   };
 }
 
-function view() {
+function view (csrfToken) {
   return `
     <h2>Add a new player</h2>
     <form action="/admin/players" method="POST">
+      <input type="hidden" name="_csrf" value="${csrfToken}"/>
       <label>
         Name: <input type="text" name="name" required/>
       </label>
@@ -26,4 +27,4 @@ function view() {
   `
 }
 
-exports.handler = arc.http.async(newPlayer);
+exports.handler = pipeline(basicAuth, ...defaults(), newPlayer);
