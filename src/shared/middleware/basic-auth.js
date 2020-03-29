@@ -11,8 +11,6 @@ module.exports = function basicAuth ({ headers }, _response, next) {
     }
     next();
   } catch (error) {
-    console.error(error);
-    console.error({ headers });
     return {
       statusCode: 401,
       headers: { 'WWW-Authenticate': 'Basic realm="SJCCHoops"' },
