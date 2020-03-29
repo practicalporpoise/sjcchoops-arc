@@ -21,7 +21,6 @@ module.exports = function Layout(content) {
         <main role="main" class="container">
           ${content}
         </main>
-        <script type="application/javascript" src="${arc.http.helpers.static('/app.js')}"></script>
       </body>
     </html>
   `;

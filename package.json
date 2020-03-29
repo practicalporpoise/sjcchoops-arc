@@ -1,11 +1,10 @@
 {
   "name": "sjcchoops-arc",
   "version": "1.0.0",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "license": "ISC",
   "devDependencies": {
-    "@architect/architect": "^6.2.4"
+    "@architect/architect": "^6.3.2",
+    "@architect/macro-http-api": "^1.0.0"
   }
 }

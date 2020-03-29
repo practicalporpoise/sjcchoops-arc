@@ -1,5 +1,5 @@
 {
-  "name": "list-players",
+  "name": "new-player",
   "dependencies": {
     "@architect/functions": "^3.8.1"
   }

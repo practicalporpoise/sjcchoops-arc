@@ -1,8 +1,8 @@
 const { BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD } = process.env;
 
-module.exports = async function basicAuth (request, _response, next) {
+module.exports = function basicAuth ({ headers }, _response, next) {
   try {
-    const { Authorization: authorization } = request.headers;
+    const authorization = headers.Authorization || headers.authorization;
     const [_scheme, rawCredentials] = authorization.split(' ');
     const credentials = new Buffer(rawCredentials, 'base64').toString();
     const [username, password] = credentials.split(':');
@@ -11,6 +11,8 @@ module.exports = async function basicAuth (request, _response, next) {
     }
     next();
   } catch (error) {
+    console.error(error);
+    console.error({ headers });
     return {
       statusCode: 401,
       headers: { 'WWW-Authenticate': 'Basic realm="SJCCHoops"' },

@@ -1,7 +1,7 @@
 {
-  "name": "get-admin-players",
+  "name": "post-admin-players",
   "dependencies": {
-    "@architect/functions": "^3.7.6",
+    "@architect/functions": "^3.8.1",
     "hashids": "^2.2.1"
   }
 }

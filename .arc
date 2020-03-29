@@ -1,7 +1,13 @@
 @app
 sjcchoops
 
+@macros
+architect/macro-http-api
+
 @http
+get /
+get /:sessionDate
+post /sessions
 get /admin/players
 get /admin/players/new
 get /admin/players/:playerId
@@ -14,6 +20,8 @@ get /error
 @tables
 players
   playerId *String
+sessions
+  date *String
 
 @indexes
 players
@@ -22,4 +30,3 @@ players
 @aws
 profile arc
 region us-west-1
-  

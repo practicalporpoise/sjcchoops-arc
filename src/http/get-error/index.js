@@ -1,9 +1,9 @@
-const arc = require('@architect/functions');
 const Layout = require('@architect/views/layout');
 const { defaults, pipeline } = require('@architect/shared/middleware');
 
-async function error (req) {
+async function error () {
   return {
+    statusCode: 200,
     headers: {'content-type': 'text/html; charset=utf8'},
     body: Layout(view())
   }
@@ -15,4 +15,4 @@ function view() {
   `
 }
 
-exports.handler = pipeline(...defaults(), pipeline);
+exports.handler = pipeline(...defaults(), error);
